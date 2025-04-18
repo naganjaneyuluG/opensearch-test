@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: user-auth-api
-        image: user-auth-api:latest
+        image: gudditi/user-auth-api:latest
         ports:
         - containerPort: 3000
         env:
@@ -32,4 +32,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  type: LoadBalancer
+  type: NodePort
