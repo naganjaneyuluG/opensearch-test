@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-auth-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-auth-api
+  template:
+    metadata:
+      labels:
+        app: user-auth-api
+    spec:
+      containers:
+      - name: user-auth-api
+        image: user-auth-api:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URI
+          value: "mongodb+srv://:@mongodb.fzhnueq.mongodb.net/?retryWrites=true&w=majority&appName=MongoDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-auth-api-service
+spec:
+  selector:
+    app: user-auth-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
